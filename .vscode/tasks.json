@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "typescript",
+      "tsconfig": "tsconfig.json",
+      "problemMatcher": ["$tsc-watch"],
+      "group": "build",
+      "label": "tsc: watch - noEmit",
+      "option": "watch",
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "label": "yarn dev",
+      "type": "process",
+      "command": "yarn",
+      "args": ["dev"],
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    }
+  ]
+}
