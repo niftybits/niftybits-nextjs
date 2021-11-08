@@ -12,7 +12,10 @@ interface DotProps {
   onClick?: any;
 }
 
-const Dot = styled("button")<DotProps>(({ theme, active }) => ({
+const Dot = styled("button", {
+  // Configure which props should be forwarded on DOM
+  shouldForwardProp: (prop) => prop !== "active",
+})<DotProps>(({ theme, active }) => ({
   fontSize: 20,
   color: active ? theme.palette.primary.dark : theme.palette.primary.light,
   margin: `${theme.spacing(2)} ${theme.spacing(1)}`,
