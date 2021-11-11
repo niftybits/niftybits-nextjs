@@ -68,7 +68,7 @@ const Header = () => {
       <Container maxWidth="xl">
         <HeaderContainer>
           <div>
-            <Typography variant="h4">$NiftyBits</Typography>
+            <Typography variant="h5">$NiftyBits</Typography>
           </div>
           <RightContainer>
             <div>
