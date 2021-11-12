@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import type { CardContainerVariant } from "components/Card/Card";
+import { styled } from "@mui/material/styles";
 import Card from "./../Card";
 import DotIndicator from "./../DotIndicator";
-import { styled } from "@mui/material/styles";
-import type { CardContainerVariant } from "components/Card/Card";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 interface CardCarouselProps {
   cardContainerVariant?: CardContainerVariant;
@@ -13,6 +14,7 @@ const Container = styled("div")({
   flexDirection: "column",
   alignItems: "center",
   width: "100%",
+  position: "relative",
 });
 
 const CarouselContainer = styled("div")({
@@ -20,7 +22,24 @@ const CarouselContainer = styled("div")({
   justifyContent: "space-between",
   width: "100%",
   overflow: "hidden",
+  position: "relative",
 });
+
+const ArrowContainer = styled("div")(({ theme }) => ({
+  position: "absolute",
+  backgroundColor: "#e9deba",
+  margin: "auto",
+  top: 0,
+  right: -20,
+  bottom: 0,
+  height: 60,
+  width: 60,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  borderRadius: "50%",
+  cursor: "pointer",
+}));
 
 const CardContainer = styled(Card)(({ theme }) => ({
   marginLeft: theme.spacing(2),
@@ -104,6 +123,9 @@ const CardCarousel: React.FC<CardCarouselProps> = ({
           containerVariant={cardContainerVariant}
         />
       </CarouselContainer>
+      <ArrowContainer>
+        <ArrowForwardIosIcon />
+      </ArrowContainer>
       <DotIndicator length={5} activeIndex={activeIndex} onUpdate={onUpdate} />
     </Container>
   );
