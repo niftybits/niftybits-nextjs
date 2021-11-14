@@ -1,6 +1,8 @@
 import type { ReactElement, ReactNode } from "react";
+import { Provider } from "react-redux";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
+import { store } from "store/store";
 import "../styles/globals.css";
 import Head from "next/head";
 import type { NextPageWithLayout } from "./random2398";
@@ -22,7 +24,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           rel="stylesheet"
         />
       </Head>
-      {getLayout(<Component {...pageProps} />)}
+      <Provider store={store}>
+        {getLayout(<Component {...pageProps} />)}
+      </Provider>
     </>
   );
 }

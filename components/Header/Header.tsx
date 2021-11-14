@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -13,8 +14,10 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Link from "@mui/material/Link";
+import TwitterIcon from "@mui/icons-material/Twitter";
 import UserDescription from "components/UserDescription";
 import Search from "components/Search";
+import { useGetTwitterAuthQuery } from "services/auth";
 
 const HeaderContainer = styled("div")(({ theme }) => {
   return {
@@ -54,6 +57,10 @@ const MenuLink = styled(Link)(({ theme }) => ({
 }));
 
 const Header = () => {
+  const { data, error, isLoading } = useGetTwitterAuthQuery(undefined);
+
+  console.log("getTwitter query", data);
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -86,7 +93,15 @@ const Header = () => {
               </MenuLink>
             </NavContainer>
             <div>
-              <RectangleIconButton
+              <Button>
+                Connect
+                <TwitterIcon
+                  sx={{
+                    marginLeft: (theme) => theme.spacing(0.5),
+                  }}
+                />
+              </Button>
+              {/* <RectangleIconButton
                 size="small"
                 onClick={handleClick}
                 sx={{
@@ -97,7 +112,7 @@ const Header = () => {
                   balance={5}
                   user={{ username: "Ivan", imageURL: "apegang5929.png" }}
                 />
-              </RectangleIconButton>
+              </RectangleIconButton> */}
               <Menu
                 anchorEl={anchorEl}
                 open={open}
