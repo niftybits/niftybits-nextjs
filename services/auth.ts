@@ -12,14 +12,26 @@ import {
 // Define a service using a base URL and expected endpoints
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "/api/auth/", mode: "no-cors" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "/api/auth/" }),
   endpoints: (builder) => ({
-    getTwitterAuth: builder.query({
-      query: () => `twitter/`,
+    getTwitterOAuthToken: builder.query({
+      query: () => `twitter/token`,
+    }),
+    verifyTwitterCallbackTokens: builder.mutation({
+      query: (postBody) => {
+        return {
+          url: "twitter",
+          method: "POST",
+          body: postBody,
+        };
+      },
     }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetTwitterAuthQuery } = authApi;
+export const {
+  useGetTwitterOAuthTokenQuery,
+  useVerifyTwitterCallbackTokensMutation,
+} = authApi;

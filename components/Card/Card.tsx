@@ -70,7 +70,6 @@ const MediaCard: React.FC<CardProps> = ({
   variant,
   containerVariant,
 }) => {
-  console.log("media card classes", className);
   return (
     <CardContainer
       className={className}

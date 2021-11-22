@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -17,7 +17,8 @@ import Link from "@mui/material/Link";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import UserDescription from "components/UserDescription";
 import Search from "components/Search";
-import { useGetTwitterAuthQuery } from "services/auth";
+import { useGetTwitterOAuthTokenQuery } from "services/auth";
+import { skipToken } from "@reduxjs/toolkit/query/react";
 
 const HeaderContainer = styled("div")(({ theme }) => {
   return {
@@ -57,12 +58,21 @@ const MenuLink = styled(Link)(({ theme }) => ({
 }));
 
 const Header = () => {
-  const { data, error, isLoading } = useGetTwitterAuthQuery(undefined);
-
-  console.log("getTwitter query", data);
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [connectTwitter, setConnectTwitter] = useState<any>(skipToken);
+  const { data: { oauth_token } = { oauth_token: "" } } =
+    useGetTwitterOAuthTokenQuery(connectTwitter);
+
+  useEffect(() => {
+    if (oauth_token) {
+      location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
+    }
+  }, [oauth_token]);
+
   const open = Boolean(anchorEl);
+  const handleConnectTwitter = () => {
+    setConnectTwitter(true);
+  };
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -93,7 +103,7 @@ const Header = () => {
               </MenuLink>
             </NavContainer>
             <div>
-              <Button>
+              <Button onClick={handleConnectTwitter}>
                 Connect
                 <TwitterIcon
                   sx={{
