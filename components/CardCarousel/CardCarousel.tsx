@@ -41,9 +41,10 @@ const ArrowContainer = styled("div")(({ theme }) => ({
   cursor: "pointer",
 }));
 
-const CardContainer = styled(Card)(({ theme }) => ({
+const CardContainer = styled(Card)(({ color, theme }) => ({
   marginLeft: theme.spacing(2),
-  background: "#10ac84",
+  background: color,
+  color: theme.palette.getContrastText(color),
   ":nth-of-type(1)": {
     marginLeft: 0,
   },
@@ -70,28 +71,28 @@ const CardCarousel: React.FC<CardCarouselProps> = ({
           title="Ape Gang#5929"
           description="Purchased August 2021"
           imageURL="apegang5929.png"
-          color="#10ac84"
+          color="#881a1e"
           containerVariant={cardContainerVariant}
         />
         <CardContainer
           title="Toucan Gang#2107"
           description="Purchased August 2021"
           imageURL="toucangang2107.png"
-          color="#10ac84"
+          color="#465bae"
           containerVariant={cardContainerVariant}
         />
         <CardContainer
           title="Ape Gang#5929"
           description="Purchased August 2021"
           imageURL="apegang5929.png"
-          color="#10ac84"
+          color="#881a1e"
           containerVariant={cardContainerVariant}
         />
         <CardContainer
           title="Toucan Gang#2107"
           description="Purchased August 2021"
           imageURL="toucangang2107.png"
-          color="#10ac84"
+          color="#465bae"
           containerVariant={cardContainerVariant}
         />
         <CardContainer

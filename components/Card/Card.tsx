@@ -6,6 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
 
 export type CardContainerVariant = "tallboy" | "square" | "default";
 
@@ -45,15 +46,26 @@ const CardContainer = styled(Card)<CardContainerProps>(
       width: CardContainerWidth[containerVariant],
       height: CardContainerHeight[containerVariant],
     },
+    display: "flex",
+    flexDirection: "column",
     ...(containerVariant === "tallboy" || containerVariant === "square"
       ? {
           img: {
-            height: "60%",
+            flex: "1 1 100%",
           },
         }
       : {}),
   })
 );
+
+const StyledCardContent = styled(CardContent)(({ theme }) => ({
+  [":last-child"]: {
+    padding: `${theme.spacing(1)} ${theme.spacing(2)} ${theme.spacing(2)}`,
+  },
+  fontSize: "1rem",
+}));
+
+const BottomContainer = styled("div")({});
 
 CardContainer.defaultProps = {
   containerVariant: "default",
@@ -83,19 +95,32 @@ const MediaCard: React.FC<CardProps> = ({
         image={imageURL}
         alt="green iguana"
       />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {description}
-        </Typography>
-      </CardContent>
-      {status && (
-        <CardActions>
-          <Button size="small">{status}</Button>
-        </CardActions>
-      )}
+      <BottomContainer>
+        <StyledCardContent>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <Typography
+                variant="h5"
+                sx={{ fontSize: "1rem", fontWeight: "bold" }}
+              >
+                {title}
+              </Typography>
+              <Typography variant="body2">{description}</Typography>
+            </div>
+            <Box sx={{ textAlign: "right" }}>
+              <Typography variant="body2">Price</Typography>
+              <Typography variant="body2">0.0004 BTC</Typography>
+            </Box>
+          </Box>
+          <CardActions
+            sx={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0 }}
+          >
+            <Button size="small" variant="contained">
+              buy{status}
+            </Button>
+          </CardActions>
+        </StyledCardContent>
+      </BottomContainer>
     </CardContainer>
   );
 };
