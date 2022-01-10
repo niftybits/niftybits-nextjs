@@ -2,7 +2,7 @@ import React from "react";
 import Card, { CardProps as MUICardProps } from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+import CardMedia from "components/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
@@ -20,6 +20,7 @@ interface CardProps {
   className?: string;
   variant?: MUICardProps["variant"];
   containerVariant?: CardContainerVariant;
+  cardMediaHeight?: string | number;
 }
 
 interface CardContainerProps extends MUICardProps {
@@ -53,6 +54,9 @@ const CardContainer = styled(Card)<CardContainerProps>(
           img: {
             flex: "1 1 100%",
           },
+          video: {
+            flex: "1 1 100%",
+          },
         }
       : {}),
   })
@@ -81,6 +85,7 @@ const MediaCard: React.FC<CardProps> = ({
   className,
   variant,
   containerVariant,
+  cardMediaHeight,
 }) => {
   return (
     <CardContainer
@@ -89,12 +94,7 @@ const MediaCard: React.FC<CardProps> = ({
       color={color}
       containerVariant={containerVariant}
     >
-      <CardMedia
-        component="img"
-        height="140"
-        image={imageURL}
-        alt="green iguana"
-      />
+      <CardMedia height={cardMediaHeight} />
       <BottomContainer>
         <StyledCardContent>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>

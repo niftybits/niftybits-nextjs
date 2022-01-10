@@ -95,9 +95,6 @@ const Header = () => {
               <MenuLink variant="h6" href="#">
                 Help
               </MenuLink>
-              <MenuLink variant="h6" href="#">
-                Connect
-              </MenuLink>
             </NavContainer>
             <div>
               <Button onClick={handleConnectTwitter}>

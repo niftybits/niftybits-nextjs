@@ -7,6 +7,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 interface CardCarouselProps {
   cardContainerVariant?: CardContainerVariant;
+  cardMediaHeight?: string | number;
 }
 
 const Container = styled("div")({
@@ -41,17 +42,20 @@ const ArrowContainer = styled("div")(({ theme }) => ({
   cursor: "pointer",
 }));
 
-const CardContainer = styled(Card)(({ color, theme }) => ({
-  marginLeft: theme.spacing(2),
-  background: color,
-  color: theme.palette.getContrastText(color),
-  ":nth-of-type(1)": {
-    marginLeft: 0,
-  },
-}));
+const CardContainer = styled((props: any) => <Card {...props} />)(
+  ({ color, theme }) => ({
+    marginLeft: theme.spacing(2),
+    background: color,
+    color: theme.palette.getContrastText(color),
+    ":nth-of-type(1)": {
+      marginLeft: 0,
+    },
+  })
+);
 
 const CardCarousel: React.FC<CardCarouselProps> = ({
   cardContainerVariant,
+  cardMediaHeight,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const onUpdate = (index: number) => {
@@ -73,6 +77,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({
           imageURL="apegang5929.png"
           color="#881a1e"
           containerVariant={cardContainerVariant}
+          cardMediaHeight={cardMediaHeight}
         />
         <CardContainer
           title="Toucan Gang#2107"
@@ -80,6 +85,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({
           imageURL="toucangang2107.png"
           color="#465bae"
           containerVariant={cardContainerVariant}
+          cardMediaHeight={cardMediaHeight}
         />
         <CardContainer
           title="Ape Gang#5929"
@@ -87,6 +93,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({
           imageURL="apegang5929.png"
           color="#881a1e"
           containerVariant={cardContainerVariant}
+          cardMediaHeight={cardMediaHeight}
         />
         <CardContainer
           title="Toucan Gang#2107"
@@ -94,6 +101,23 @@ const CardCarousel: React.FC<CardCarouselProps> = ({
           imageURL="toucangang2107.png"
           color="#465bae"
           containerVariant={cardContainerVariant}
+          cardMediaHeight={cardMediaHeight}
+        />
+        <CardContainer
+          title="Toucan Gang#2107"
+          description="Purchased August 2021"
+          imageURL="toucangang2107.png"
+          color="#465bae"
+          containerVariant={cardContainerVariant}
+          cardMediaHeight={cardMediaHeight}
+        />
+        <CardContainer
+          title="Toucan Gang#2107"
+          description="Purchased August 2021"
+          imageURL="toucangang2107.png"
+          color="#465bae"
+          containerVariant={cardContainerVariant}
+          cardMediaHeight={cardMediaHeight}
         />
         <CardContainer
           title="Toucan Gang#2107"
@@ -101,6 +125,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({
           imageURL="toucangang2107.png"
           color="#10ac84"
           containerVariant={cardContainerVariant}
+          cardMediaHeight={cardMediaHeight}
         />
         <CardContainer
           title="Toucan Gang#2107"
@@ -108,20 +133,7 @@ const CardCarousel: React.FC<CardCarouselProps> = ({
           imageURL="toucangang2107.png"
           color="#10ac84"
           containerVariant={cardContainerVariant}
-        />
-        <CardContainer
-          title="Toucan Gang#2107"
-          description="Purchased August 2021"
-          imageURL="toucangang2107.png"
-          color="#10ac84"
-          containerVariant={cardContainerVariant}
-        />
-        <CardContainer
-          title="Toucan Gang#2107"
-          description="Purchased August 2021"
-          imageURL="toucangang2107.png"
-          color="#10ac84"
-          containerVariant={cardContainerVariant}
+          cardMediaHeight={cardMediaHeight}
         />
       </CarouselContainer>
       <ArrowContainer>

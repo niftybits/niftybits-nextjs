@@ -18,7 +18,7 @@ const Home: NextPageWithLayout = () => {
       <main className={styles.main}>
         <CardCarousel cardContainerVariant="square" />
         <CardCarousel cardContainerVariant="tallboy" />
-        <CardCarousel />
+        <CardCarousel cardMediaHeight={140} />
       </main>
     </div>
   );
