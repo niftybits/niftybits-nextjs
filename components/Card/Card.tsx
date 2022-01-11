@@ -47,6 +47,9 @@ const CardContainer = styled(Card)<CardContainerProps>(
       width: CardContainerWidth[containerVariant],
       height: CardContainerHeight[containerVariant],
     },
+    [theme.breakpoints.up("lg")]: {
+      flex: "1 0 25%",
+    },
     display: "flex",
     flexDirection: "column",
     ...(containerVariant === "tallboy" || containerVariant === "square"
