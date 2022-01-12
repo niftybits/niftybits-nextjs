@@ -20,6 +20,7 @@ import ButtonUnstyled, {
 import type { NextPageWithLayout } from "./random2398";
 import CollapseContent from "components/CollapseContent";
 import ListingGrid from "components/ListingGrid";
+import { useLazyGetListingsQuery } from "services/listings";
 
 const AsideSidebar = styled("aside")(
   ({ theme }) => `
@@ -37,6 +38,29 @@ const StyledMain = styled("main")`
 
 const Browse: NextPageWithLayout = () => {
   const [expanded, setExpanded] = useState(false);
+  const [fetchedListings, setFetchedListings] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [getListingsData, listingsData, loading] = useLazyGetListingsQuery();
+
+  useEffect(() => {
+    console.log("listingsData effect", listingsData);
+    console.log("currentPage", currentPage);
+    if (listingsData?.data?.page) {
+      console.log("setting fetched listings", listingsData);
+      setFetchedListings((state: any) => {
+        return [...state, ...listingsData?.data?.data];
+      });
+    }
+  }, [listingsData, currentPage]);
+
+  console.log("listingsData", listingsData);
+
+  const fetchMore = async () => {
+    console.log("fetchMore");
+    setCurrentPage((state) => ++state);
+    const listingsResult = await getListingsData(currentPage);
+    console.log("listingsResult", listingsResult);
+  };
 
   return (
     <Box display="flex" alignItems="flex-start">
@@ -47,7 +71,16 @@ const Browse: NextPageWithLayout = () => {
       </AsideSidebar>
 
       <StyledMain>
-        <ListingGrid listings={["test", "ok", "test", "ok", "test", "ok"]} />
+        <ListingGrid listings={fetchedListings} />
+        <Button
+          fullWidth
+          variant="contained"
+          sx={{ marginTop: "1em" }}
+          onClick={fetchMore}
+          disabled={listingsData?.isLoading}
+        >
+          Load more
+        </Button>
       </StyledMain>
     </Box>
   );
