@@ -15,7 +15,10 @@ export const listingsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "/api/listings/" }),
   endpoints: (builder) => ({
     getListings: builder.query({
-      query: (page: number) => `/?page=${page}`,
+      query: (page: number) => {
+        console.log("getListings page", page);
+        return `/?page=${page}`;
+      },
     }),
   }),
 });

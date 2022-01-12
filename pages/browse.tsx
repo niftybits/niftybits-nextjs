@@ -1,24 +1,11 @@
 import { ReactElement, useEffect, useState } from "react";
 import ListingFilters from "components/ListingFilters";
-import Head from "next/head";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import CardCarousel from "components/CardCarousel";
 import { styled } from "@mui/material/styles";
 import Layout from "components/Layout";
-import Collapse from "@mui/material/Collapse";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUp from "@mui/icons-material/ArrowDropUp";
-import Typography from "@mui/material/Typography";
-import ButtonUnstyled, {
-  buttonUnstyledClasses,
-  ButtonUnstyledProps,
-} from "@mui/base/ButtonUnstyled";
 
 import type { NextPageWithLayout } from "./random2398";
-import CollapseContent from "components/CollapseContent";
 import ListingGrid from "components/ListingGrid";
 import { useLazyGetListingsQuery } from "services/listings";
 
@@ -39,27 +26,26 @@ const StyledMain = styled("main")`
 const Browse: NextPageWithLayout = () => {
   const [expanded, setExpanded] = useState(false);
   const [fetchedListings, setFetchedListings] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [getListingsData, listingsData, loading] = useLazyGetListingsQuery();
 
   useEffect(() => {
-    console.log("listingsData effect", listingsData);
-    console.log("currentPage", currentPage);
-    if (listingsData?.data?.page) {
-      console.log("setting fetched listings", listingsData);
+    if (listingsData?.data?.page > currentPage) {
+      setCurrentPage(listingsData?.data?.page);
       setFetchedListings((state: any) => {
         return [...state, ...listingsData?.data?.data];
       });
     }
-  }, [listingsData, currentPage]);
+  }, [listingsData.data, currentPage]);
+
+  useEffect(() => {
+    getListingsData(currentPage + 1);
+  }, []);
 
   console.log("listingsData", listingsData);
 
   const fetchMore = async () => {
-    console.log("fetchMore");
-    setCurrentPage((state) => ++state);
-    const listingsResult = await getListingsData(currentPage);
-    console.log("listingsResult", listingsResult);
+    const listingsResult = await getListingsData(currentPage + 1);
   };
 
   return (
